@@ -10,5 +10,8 @@ namespace Repositarylayer.Interfaces
         public UserModel AddUser(UserModel userReg);
 
         public UserLogin LoginUser(UserLogin userLogin);
+        public string ForgotPassword(string Email);
+
+        public bool ResetPassword(string email, string newPassword, string confirmPassword);
     }
 }

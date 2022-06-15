@@ -26,17 +26,18 @@ namespace Businesslayer.Services
             }
         }
 
-        //public UserLogin LoginUser(string Email, string Password)
-        //{
-        //    try
-        //    {
-        //        return this.userRL.LoginUser(Email, Password);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+        public string ForgotPassword(string Email)
+        {
+            try
+            {
+                return this.userRL.ForgotPassword(Email);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         public UserLogin LoginUser(UserLogin userLogin)
         {
@@ -50,6 +51,20 @@ namespace Businesslayer.Services
                 throw ex;
             }
         }
+
+        public bool ResetPassword(string email, string newPassword, string confirmPassword)
+        {
+            try
+            {
+                return this.userRL.ResetPassword(email, newPassword, confirmPassword);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+       
     }
 
         
