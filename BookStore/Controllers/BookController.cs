@@ -31,5 +31,39 @@ namespace BookStore.Controllers
                 throw ex;
             }
         }
+
+        [HttpPost("UpdateBook")]
+        public IActionResult UpdateBook(UpdateBookModel updateBookModel)
+        {
+            try
+            {
+                var result = this.bookBL.UpdateBook(updateBookModel);
+                if (result != null)
+                    return this.Ok(new ResponseModel<UpdateBookModel>() { Status = true, Message = "Book Updated Successfully", Data = result });
+                else
+                    return this.BadRequest(new ResponseModel<UpdateBookModel> { Status = false, Message = "failed to update book", Data = result });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpDelete("DeleteBook")]
+        public IActionResult DeleteBook( int bookId)
+        {
+            try
+            {
+                var result = this.bookBL.DeleteBook(bookId);
+                if (result != null)
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Book deleted Successfully", Data = result });
+                else
+                    return this.BadRequest(new ResponseModel<string> { Status = false, Message = "not deleted", Data = result });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

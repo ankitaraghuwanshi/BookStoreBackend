@@ -8,5 +8,9 @@ namespace Repositarylayer.Interfaces
     public interface IBookRL
     {
         public BookModel AddBook(BookModel book);
+
+        public UpdateBookModel UpdateBook(UpdateBookModel updateBookModel);
+
+        public string DeleteBook(int bookId);
     }
 }
