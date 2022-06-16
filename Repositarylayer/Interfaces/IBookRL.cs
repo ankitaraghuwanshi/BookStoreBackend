@@ -12,5 +12,9 @@ namespace Repositarylayer.Interfaces
         public UpdateBookModel UpdateBook(UpdateBookModel updateBookModel);
 
         public string DeleteBook(int bookId);
+
+        public List<BookModel> GetAllBooks();
+
+        public BookModel GetBookByBookId(int BookId);
     }
 }

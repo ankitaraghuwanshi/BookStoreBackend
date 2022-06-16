@@ -49,8 +49,8 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpDelete("DeleteBook")]
-        public IActionResult DeleteBook( int bookId)
+        [HttpDelete("DeleteBook/{bookId}")]
+        public IActionResult DeleteBook(int bookId)
         {
             try
             {
@@ -63,6 +63,48 @@ namespace BookStore.Controllers
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        [HttpGet("GetAllBook")]
+        public IActionResult GetBook()
+        {
+            try
+            {
+                var result = this.bookBL.GetAllBooks();
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "got all books successfuly", Response = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Failed to get all Books" });
+                }
+            }
+            catch (Exception Ex)
+            {
+
+                return NotFound(new { success = false, message = Ex.Message });
+            }
+        }
+        [HttpGet("GetBookByBookId/{BookId}")]
+        public IActionResult GetBookByBookId(int BookId)
+        {
+            try
+            {
+                var book = this.bookBL.GetBookByBookId(BookId);
+                if (book != null)
+                {
+                    return this.Ok(new { Success = true, message = "Book Detail Fetched Sucessfully", Response = book });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "Enter valid BooId" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
     }
