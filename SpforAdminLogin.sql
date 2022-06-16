@@ -11,7 +11,7 @@ Insert into AdminTable values('Ankitaraghu', 'bittanraghu@gmail.com', 'bittan@12
 select * from AdminTable
 
 --------sp for admin login-------
-create procedure AdminLogin
+Alter procedure AdminLogin
 (
 @Email varchar(255),
 @Password varchar(255)
