@@ -11,14 +11,17 @@ BookDetails varchar(255),
 BookImage varchar(255),
 Quantity int
 );
+
+ALTER TABLE BooksTable
+ALTER COLUMN Rating varchar(100);
  
  select * from BooksTable
  -------------------------sp for adding book ----------
-create procedure AddBookTable
+alter procedure AddBookTable
 (
 @BookName varchar(255),
 @authorName varchar(255),
-@rating int,
+@rating varchar(100),
 @totalView int,
 @originalPrice Decimal,
 @discountPrice Decimal,
@@ -35,12 +38,12 @@ values (@bookName, @authorName, @rating, @totalView ,@originalPrice, @discountPr
 End;
 
 -----------------spfor Updatebook-----------------
-create procedure UpdateBooktable
+Alter procedure UpdateBooktable
 (
 @BookId int,
 @BookName varchar(255),
 @authorName varchar(255),
-@rating int,
+@rating varchar(100),
 @totalView int,
 @originalPrice Decimal,
 @discountPrice Decimal,

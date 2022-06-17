@@ -161,7 +161,7 @@ namespace Repositarylayer.Services
                             BookId = Convert.ToInt32(reader["bookId"]),
                             BookName = reader["bookName"].ToString(),
                             AuthorName = reader["authorName"].ToString(),
-                            Rating = Convert.ToInt32(reader["rating"]),
+                            Rating = reader["rating"].ToString(),
                             TotalView = Convert.ToInt32(reader["totalview"]),
                             DiscountPrice = Convert.ToDecimal(reader["discountPrice"]),
                             OriginalPrice = Convert.ToDecimal(reader["originalPrice"]),
@@ -206,7 +206,7 @@ namespace Repositarylayer.Services
                         BookId = Convert.ToInt32(reader["bookId"]);
                         model.BookName = reader["bookName"].ToString();
                         model.AuthorName = reader["authorName"].ToString();
-                        model.Rating = Convert.ToInt32(reader["rating"]);
+                        model.Rating = reader["rating"].ToString();
                         model.TotalView = Convert.ToInt32(reader["totalview"]);
                         model.DiscountPrice = Convert.ToInt32(reader["discountPrice"]);
                         model.OriginalPrice = Convert.ToInt32(reader["originalPrice"]);

@@ -70,8 +70,10 @@ namespace Repositarylayer.Services
                 {
                     CommandType = CommandType.StoredProcedure
                 };
+                var passwordToEncript = EncodePasswordToBase64(userLogin.Password);
                 cmd.Parameters.AddWithValue("@Email", userLogin.Email);
-                cmd.Parameters.AddWithValue("@Password", userLogin.Password);
+                cmd.Parameters.AddWithValue("@Password",passwordToEncript);
+
                 this.sqlConnection.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 if (rdr.HasRows)
@@ -81,7 +83,7 @@ namespace Repositarylayer.Services
                     while (rdr.Read())
                     {
                         userLogin.Email = Convert.ToString(rdr["Email"]);
-                        userLogin.Password = Convert.ToString(rdr["Password"]);
+                        passwordToEncript = Convert.ToString(rdr["Password"]);
                         UserId = Convert.ToInt32(rdr["UserId"]);
                     }
 
