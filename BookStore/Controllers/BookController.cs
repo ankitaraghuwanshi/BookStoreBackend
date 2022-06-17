@@ -1,5 +1,6 @@
 ﻿using Businesslayer.Interfaces;
 using Commonlayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -14,7 +15,7 @@ namespace BookStore.Controllers
         {
             this.bookBL = bookBL;
         }
-
+        [Authorize(Roles=Role.Admin)]
         [HttpPost("AddBook")]
         public IActionResult AddBook(BookModel book)
         {

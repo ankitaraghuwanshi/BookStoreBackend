@@ -25,6 +25,17 @@ namespace Businesslayer.Services
             }
         }
 
+        public List<ViewCartModel> GetCartByUserid(int UserId)
+        {
+            try
+            {
+                return this.cartRL.GetCartByUserid(UserId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         public string RemoveBookFromCart(int CartId)
         {
@@ -39,7 +50,17 @@ namespace Businesslayer.Services
             }
         }
 
+        public CartModel UpdateCart(CartModel cartModel, int UserId, int CartId)
+        {
+            try
+            {
+                return this.cartRL.UpdateCart(cartModel, UserId, CartId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
-       
+        }
     }
 }

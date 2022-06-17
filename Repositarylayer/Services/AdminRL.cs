@@ -29,7 +29,8 @@ namespace Repositarylayer.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
-                {
+                {   
+                    new Claim(ClaimTypes.Role,"Admin"),
                     new Claim("Email", Email),
                     new Claim("AdminId",AdminId.ToString())
                 }),

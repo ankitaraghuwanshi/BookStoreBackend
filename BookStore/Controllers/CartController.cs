@@ -55,7 +55,45 @@ namespace BookStore.Controllers
             }
         }
 
+        [HttpGet("GetCartByUserid/{UserId}")]
+        public IActionResult GetCartByUserid(int UserId)
+        {
+            try
+            {
+                var cartdata = this.cartBL.GetCartByUserid(UserId);
+                if (cartdata != null)
+                {
+                    return this.Ok(new { Success = true, message = "cart Detail Fetched Sucessfully", Response = cartdata });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "Enter valid userId" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
 
+
+        }
+
+        [HttpPost("UpdateCart/UserId/CartId")]
+        public IActionResult UpdateCart(CartModel cartModel, int UserId, int CartId)
+        {
+            try
+            {
+                var result = this.cartBL.UpdateCart(cartModel, UserId, CartId);
+                if (result != null)
+                    return this.Ok(new  { Status = true, message = "cart Updated Successfully", Response = result });
+                else
+                    return this.BadRequest(new  { Status = false, message = "failed to update cart", Response = result });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
         
