@@ -6,6 +6,9 @@ Email varchar(255),
 Password varchar(255),
 PhoneNumber Bigint
 );
+
+Alter table BooksTable Add AdminId int Foreign key(AdminId) References AdminTable(AdminId);
+
 -------admin is onlyone so inserted admin details directly here----
 Insert into AdminTable values('Ankitaraghu', 'bittanraghu@gmail.com', 'bittan@123', '9752701428');
 select * from AdminTable

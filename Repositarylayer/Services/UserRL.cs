@@ -38,7 +38,8 @@ namespace Repositarylayer.Services
                 cmd.Parameters.AddWithValue("@MobileNumber", userReg.MobileNumber);
                 this.sqlConnection.Open();
                 var result = cmd.ExecuteNonQuery();
-                //ExecuteNonQuery method is used to execute SQL Command or the storeprocedure performs, INSERT, UPDATE or Delete operations.
+                //ExecuteNonQuery method is used to execute SQL Command or the storeprocedure
+                //performs, INSERT, UPDATE or Delete operations.
                 //It doesn't return any data from the database.
                 //Instead, it returns an integer specifying the number of rows inserted, updated or deleted.
                 this.sqlConnection.Close();
@@ -112,7 +113,8 @@ namespace Repositarylayer.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
-                {
+                {  
+                    new Claim(ClaimTypes.Role,"User"),
                     new Claim("Email", Email),
                     new Claim("UserId",UserId.ToString())
                 }),
@@ -214,7 +216,7 @@ namespace Repositarylayer.Services
                 {
                     int UserId = 0;
                     while (rdr.Read())
-                    {
+                    { 
                         Email = Convert.ToString(rdr["Email"]);
                         UserId = Convert.ToInt32(rdr["UserId"]);
                     }

@@ -15,6 +15,7 @@ namespace BookStore.Controllers
         {
             this.bookBL = bookBL;
         }
+
         [Authorize(Roles=Role.Admin)]
         [HttpPost("AddBook")]
         public IActionResult AddBook(BookModel book)
@@ -32,7 +33,7 @@ namespace BookStore.Controllers
                 throw ex;
             }
         }
-
+        [Authorize(Roles = Role.Admin)]
         [HttpPost("UpdateBook")]
         public IActionResult UpdateBook(UpdateBookModel updateBookModel)
         {
@@ -49,7 +50,7 @@ namespace BookStore.Controllers
                 throw ex;
             }
         }
-
+        [Authorize(Roles = Role.Admin)]
         [HttpDelete("DeleteBook/{bookId}")]
         public IActionResult DeleteBook(int bookId)
         {
@@ -67,6 +68,7 @@ namespace BookStore.Controllers
             }
         }
 
+        [Authorize(Roles = Role.User)]
         [HttpGet("GetAllBook")]
         public IActionResult GetBook()
         {
@@ -88,6 +90,7 @@ namespace BookStore.Controllers
                 return NotFound(new { success = false, message = Ex.Message });
             }
         }
+
         [HttpGet("GetBookByBookId/{BookId}")]
         public IActionResult GetBookByBookId(int BookId)
         {

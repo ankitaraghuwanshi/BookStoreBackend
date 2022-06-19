@@ -74,7 +74,7 @@ namespace Repositarylayer.Services
                     }
 
                     this.sqlConnection.Close();
-                    var Token = this.GenerateJWTToken(adminLoginModel.Email, AdminId);
+                    adminLoginModel.Token = this.GenerateJWTToken(adminLoginModel.Email, AdminId);
                     return adminLoginModel;
 
                 }
