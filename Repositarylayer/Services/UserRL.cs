@@ -108,11 +108,11 @@ namespace Repositarylayer.Services
         {
             //generate token
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();//header part
             var tokenKey = Encoding.ASCII.GetBytes("THIS_IS_MY_KEY_TO_GENERATE_TOKEN");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
+                Subject = new ClaimsIdentity(new Claim[]//payload part
                 {  
                     new Claim(ClaimTypes.Role,"User"),
                     new Claim("Email", Email),
@@ -120,7 +120,7 @@ namespace Repositarylayer.Services
                 }),
                 Expires = DateTime.UtcNow.AddHours(24),
 
-                SigningCredentials =
+                SigningCredentials =//signature part
                 new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),
                     SecurityAlgorithms.HmacSha256Signature)
@@ -146,17 +146,17 @@ namespace Repositarylayer.Services
         }
 
         //this function Convert to Decord your Password
-        public string DecodeFrom64(string encodedData)
-        {
-            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
-            System.Text.Decoder utf8Decode = encoder.GetDecoder();
-            byte[] todecode_byte = Convert.FromBase64String(encodedData);
-            int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
-            char[] decoded_char = new char[charCount];
-            utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
-            string result = new String(decoded_char);
-            return result;
-        }
+        //public string DecodeFrom64(string encodedData)
+        //{
+        //    System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+        //    System.Text.Decoder utf8Decode = encoder.GetDecoder();
+        //    byte[] todecode_byte = Convert.FromBase64String(encodedData);
+        //    int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+        //    char[] decoded_char = new char[charCount];
+        //    utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+        //    string result = new String(decoded_char);
+        //    return result;
+        //}
 
         private void msmqQueue_ReceiveCompleted(object sender, ReceiveCompletedEventArgs e)
         {
