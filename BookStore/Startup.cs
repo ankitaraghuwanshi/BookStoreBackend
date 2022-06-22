@@ -59,6 +59,14 @@ namespace BookStore
             services.AddTransient<IFeedbackBL, FeedbackBL>();
             services.AddTransient<IFeedbackRL, FeedbackRL>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                name: "AllowOrigin",
+              builder => {
+                  builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+              });
+            });
             services.AddSwaggerGen(setup =>
             {
                 // Include 'SecurityScheme' to use JWT Authentication
@@ -121,6 +129,8 @@ namespace BookStore
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowOrigin");
 
             app.UseHttpsRedirection();
 
