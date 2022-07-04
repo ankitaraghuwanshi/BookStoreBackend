@@ -53,7 +53,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost("ForgotPassword")]
+        [HttpPost("ForgotPassword/{email}")]
         public IActionResult ForgotPassword(string email)
         {
             try
@@ -76,7 +76,7 @@ namespace BookStore.Controllers
       
         [Authorize]
 
-        [HttpPut("ResetPassword")]
+        [HttpPut("ResetPassword/{newPassword}/{confirmPassword}")]
         public IActionResult ResetPassword(string newPassword, string confirmPassword)
         {
             try

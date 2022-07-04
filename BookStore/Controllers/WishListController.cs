@@ -18,16 +18,16 @@ namespace BookStore.Controllers
         }
 
         [Authorize(Roles = Role.User)]
-        [HttpPost("AddToWishList/{UserId}")]
-        public IActionResult AddToWishList(WishListModel wishlistModel, int UserId)
+        [HttpPost("AddToWishList/{bookId}")]
+        public IActionResult AddToWishList(WishListModel wishlistModel)
         {
             try
             {
-
+                int UserId = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var result = this.wishlistBL.AddToWishList(wishlistModel, UserId);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, message = "Book Added SuccessFully in the wishlist ", response = result });
+                    return this.Ok(new { success = true, message = "Book Added in the wishlist ", response = result });
                 }
                 else
                 {
@@ -60,11 +60,12 @@ namespace BookStore.Controllers
         }
 
         [Authorize(Roles = Role.User)]
-        [HttpGet("GetWishlistByUserid/{UserId}")]
-        public IActionResult GetWishlistByUserid(int UserId)
+        [HttpGet("GetWishlistByUserid")]
+        public IActionResult GetWishlistByUserid()
         {
             try
             {
+                int UserId = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var wishlistdata = this.wishlistBL.GetWishlistByUserid(UserId);
                 if (wishlistdata != null)
                 {

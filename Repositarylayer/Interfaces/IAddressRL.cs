@@ -12,5 +12,6 @@ namespace Repositarylayer.Interfaces
         public AddressModel UpdateAddress(AddressModel addressModel, int AddressId, int UserId);
 
         public string DeleteAddress(int AddressId, int UserId);
+        public List<AddressModel> GetAllAddresses(int UserId);
     }
 }

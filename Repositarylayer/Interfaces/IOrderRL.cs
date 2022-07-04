@@ -9,5 +9,7 @@ namespace Repositarylayer.Interfaces
     {
         public OrderModel AddOrder(OrderModel orderModel, int UserId);
          public List<ViewOrderModel> GetAllOrder(int UserId);
+
+       
     }
 }

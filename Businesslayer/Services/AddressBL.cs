@@ -54,6 +54,19 @@ namespace Businesslayer.Services
             }
 
         }
+
+        public List<AddressModel> GetAllAddresses(int UserId)
+        {
+
+            try
+            {
+                return this.addressRL.GetAllAddresses( UserId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 
 }

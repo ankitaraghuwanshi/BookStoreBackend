@@ -1,5 +1,6 @@
 ﻿using Businesslayer.Interfaces;
 using Commonlayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -15,17 +16,17 @@ namespace BookStore.Controllers
         {
             this.cartBL = cartBL;
         }
-
-        [HttpPost("AddToCart/{UserId}")]
-        public IActionResult AddToCart(CartModel cartmodel, int UserId)
+        [Authorize(Roles = Role.User)]
+        [HttpPost("AddToCart")]
+        public IActionResult AddToCart(CartModel cartmodel)
         {
             try
             {
-
+                int UserId = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var result = this.cartBL.AddToCart(cartmodel, UserId);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, message = "Book Added SuccessFully in the Cart ", response = result });
+                    return this.Ok(new { success = true, message = "Book Added in the cart SuccessFully ", response = result });
                 }
                 else
                 {
@@ -37,12 +38,13 @@ namespace BookStore.Controllers
                 return this.BadRequest(new { Success = false, response = ex.Message });
             }
         }
-
-        [HttpDelete("DeleteBook")]
+        [Authorize(Roles = Role.User)]
+        [HttpDelete("DeleteBook/{CartId}")]
         public IActionResult RemoveBookFromCart(int CartId)
         {
             try
             {
+                int UserId = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var result = this.cartBL.RemoveBookFromCart(CartId);
                 if (result != null)
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "Book deleted from cart Successfully", Data = result });
@@ -54,12 +56,13 @@ namespace BookStore.Controllers
                 throw ex;
             }
         }
-
-        [HttpGet("GetCartByUserid/{UserId}")]
-        public IActionResult GetCartByUserid(int UserId)
+        [Authorize(Roles = Role.User)]
+        [HttpGet("GetCartByUserid")]
+        public IActionResult GetCartByUserid()
         {
             try
             {
+                int UserId = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var cartdata = this.cartBL.GetCartByUserid(UserId);
                 if (cartdata != null)
                 {
@@ -77,12 +80,13 @@ namespace BookStore.Controllers
 
 
         }
-
-        [HttpPost("UpdateCart/UserId/CartId")]
-        public IActionResult UpdateCart(CartModel cartModel, int UserId, int CartId)
+        [Authorize(Roles = Role.User)]
+        [HttpPost("UpdateCart/{CartId}")]
+        public IActionResult UpdateCart(CartModel cartModel, int CartId)
         {
             try
             {
+                int UserId = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var result = this.cartBL.UpdateCart(cartModel, UserId, CartId);
                 if (result != null)
                     return this.Ok(new  { Status = true, message = "cart Updated Successfully", Response = result });

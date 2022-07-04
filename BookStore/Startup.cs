@@ -67,6 +67,8 @@ namespace BookStore
                   builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
               });
             });
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(setup =>
             {
                 // Include 'SecurityScheme' to use JWT Authentication

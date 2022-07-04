@@ -65,3 +65,17 @@ update AddressTable set Address =@Address,
 				TypeId =@TypeId
 				where UserId=@UserId and AddressId=@Addressid;
 end;
+
+------------------sp for get all adresses---------------------
+create Proc GetAllAddresses
+(
+	@UserId int
+)
+as
+begin
+	select Address, City, State, a.UserId, b.TypeId
+	from AddressTable a
+    Inner join AddressType b on b.TypeId = a.TypeId 
+	where 
+	UserId = @UserId;
+end;

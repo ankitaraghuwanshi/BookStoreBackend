@@ -28,7 +28,7 @@ namespace Repositarylayer.Services
                      "<h1 style=\"color:grey;\"> Hello User</h1>" +
                      "<h2 style=\"color:grey;font-size:70%\">click on the below link to recover Password</h2>" +
                      "</body>" +
-                     $"http://localhost:4200/reset-password/{token}" +
+                     $"http://localhost:4200/reset/{token}" +
                      "<body style=\"background-color:white;font-size:50%;text-align:left;\">" +
                      "<h1 style=\"color:grey;\">Regards Bookstore</h1>" +
 

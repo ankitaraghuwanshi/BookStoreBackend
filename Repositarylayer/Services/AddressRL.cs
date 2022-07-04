@@ -29,9 +29,9 @@ namespace Repositarylayer.Services
                     CommandType = CommandType.StoredProcedure
                 };
                 using (sqlConnection)
-               
+
                 {
-                   
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Address", addressModel.Address);
                     cmd.Parameters.AddWithValue("@City", addressModel.City);
@@ -58,7 +58,7 @@ namespace Repositarylayer.Services
 
         }
 
-       
+
 
         public AddressModel UpdateAddress(AddressModel addressModel, int AddressId, int UserId)
         {
@@ -73,7 +73,7 @@ namespace Repositarylayer.Services
                 };
                 using (sqlConnection)
                 {
-                   
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Address", addressModel.Address);
                     cmd.Parameters.AddWithValue("@City", addressModel.City);
@@ -110,7 +110,7 @@ namespace Repositarylayer.Services
                     CommandType = CommandType.StoredProcedure
                 };
 
-               
+
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@AddressId", AddressId);
                 cmd.Parameters.AddWithValue("@UserId", UserId);
@@ -135,5 +135,54 @@ namespace Repositarylayer.Services
                 this.sqlConnection.Close();
             }
         }
-    }
+
+        public List<AddressModel> GetAllAddresses(int UserId)
+        {
+
+            try
+            {
+
+                this.sqlConnection = new SqlConnection(this.Configuration["ConnectionStrings:Bookstore"]);
+                SqlCommand cmd = new SqlCommand("GetAllAddresses", this.sqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                using (sqlConnection)
+                {
+                  
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@UserId", UserId);
+                    sqlConnection.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        List<AddressModel> addressmodel = new List<AddressModel>();
+                        while (reader.Read())
+                        {
+
+                            AddressModel addressModel = new AddressModel();
+                            addressModel.TypeId = Convert.ToInt32(reader["TypeId"]);
+                            addressModel.Address = reader["Address"].ToString();
+                            addressModel.City = reader["City"].ToString();
+                            addressModel.State = reader["State"].ToString();
+                            UserId = Convert.ToInt32(reader["UserId"]);
+                            addressmodel.Add(addressModel);
+                        }
+
+                        sqlConnection.Close();
+                        return addressmodel;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }   
+        }
+    }     
+    
 }

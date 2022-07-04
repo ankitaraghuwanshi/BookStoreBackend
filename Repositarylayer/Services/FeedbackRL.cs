@@ -19,7 +19,7 @@ namespace Repositarylayer.Services
         private IConfiguration Configuration { get; }
         public FeedbackModel AddFeedback(FeedbackModel feedbackmodel, int UserId)
         {
-            
+
             try
             {
                 this.sqlConnection = new SqlConnection(this.Configuration["ConnectionStrings:Bookstore"]);
@@ -29,8 +29,8 @@ namespace Repositarylayer.Services
                 };
                 using (sqlConnection)
                 {
-                   
-                   
+
+
                     cmd.Parameters.AddWithValue("@Comment", feedbackmodel.Comment);
                     cmd.Parameters.AddWithValue("@Rating", feedbackmodel.Rating);
                     cmd.Parameters.AddWithValue("@BookId", feedbackmodel.BookId);
@@ -57,28 +57,28 @@ namespace Repositarylayer.Services
         public List<ViewFeedbackModel> GetDetailsByBookId(int BookId)
         {
 
-            
-            
-                try
+
+
+            try
+            {
+                this.sqlConnection = new SqlConnection(this.Configuration["ConnectionStrings:Bookstore"]);
+                SqlCommand cmd = new SqlCommand("spGetAllFeedback", this.sqlConnection)
                 {
-                   this.sqlConnection = new SqlConnection(this.Configuration["ConnectionStrings:Bookstore"]);
-                   SqlCommand cmd = new SqlCommand("spGetAllFeedback", this.sqlConnection)
-                   {
                     CommandType = CommandType.StoredProcedure
-                   };
+                };
 
-                
 
-                    cmd.Parameters.AddWithValue("@BookId", BookId);
 
-                    sqlConnection.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
+                cmd.Parameters.AddWithValue("@BookId", BookId);
 
-                    if (reader.HasRows)
+                sqlConnection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
                 {
                     List<ViewFeedbackModel> viewFeedbackModel = new List<ViewFeedbackModel>();
                     while (reader.Read())
-                        {
+                    {
                         ViewFeedbackModel feedback = new ViewFeedbackModel();
                         feedback.FeedbackId = Convert.ToInt32(reader["FeedbackId"]);
                         feedback.UserId = Convert.ToInt32(reader["UserId"]);
@@ -88,21 +88,21 @@ namespace Repositarylayer.Services
                         feedback.FullName = reader["FullName"].ToString();
                         viewFeedbackModel.Add(feedback);
                     }
-                        sqlConnection.Close();
-                        return viewFeedbackModel;
-                    }
-                    else
-                    {
-                        sqlConnection.Close();
-                        return null;
-                    }
+                    sqlConnection.Close();
+                    return viewFeedbackModel;
                 }
-                catch (Exception ex)
+                else
                 {
-                    throw ex;
+                    sqlConnection.Close();
+                    return null;
                 }
-
             }
-        
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
     }
 }
