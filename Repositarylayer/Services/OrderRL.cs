@@ -35,7 +35,7 @@ namespace Repositarylayer.Services
                 sqlConnection.Open();
                 int result = cmd.ExecuteNonQuery();
                 sqlConnection.Close();
-                if (result != 2)
+                if (result == 2)
                 {
                     return null;
                 }

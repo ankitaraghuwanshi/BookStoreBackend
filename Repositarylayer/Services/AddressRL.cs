@@ -161,6 +161,7 @@ namespace Repositarylayer.Services
                         {
 
                             AddressModel addressModel = new AddressModel();
+                            addressModel.AddressId = Convert.ToInt32(reader["AddressId"]);
                             addressModel.TypeId = Convert.ToInt32(reader["TypeId"]);
                             addressModel.Address = reader["Address"].ToString();
                             addressModel.City = reader["City"].ToString();
